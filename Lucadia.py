@@ -1,16 +1,18 @@
 import pygame
+import numpy as np
 pygame.init()
 
-screenWidth = 750
-screenHeight = 500
+screenWidth = 928
+screenHeight = 793
 win = pygame.display.set_mode((screenWidth, screenHeight))
 
 pygame.display.set_caption("Lucadia")
 
-walkRight = [pygame.image.load('Game/R1.png'), pygame.image.load('Game/R2.png'), pygame.image.load('Game/R3.png'), pygame.image.load('Game/R4.png'), pygame.image.load('Game/R5.png'), pygame.image.load('Game/R6.png'), pygame.image.load('Game/R7.png'), pygame.image.load('Game/R8.png'), pygame.image.load('Game/R9.png')]
-walkLeft = [pygame.image.load('Game/L1.png'), pygame.image.load('Game/L2.png'), pygame.image.load('Game/L3.png'), pygame.image.load('Game/L4.png'), pygame.image.load('Game/L5.png'), pygame.image.load('Game/L6.png'), pygame.image.load('Game/L7.png'), pygame.image.load('Game/L8.png'), pygame.image.load('Game/L9.png')]
-bg = pygame.image.load('Game/bg.jpg')
-char = pygame.image.load('Game/standing.png')
+walkRight = [pygame.image.load('Game/adventurer-run-00.png').convert_alpha(), pygame.image.load('Game/adventurer-run-01.png').convert_alpha(), pygame.image.load('Game/adventurer-run-02.png').convert_alpha(), pygame.image.load('Game/adventurer-run-03.png').convert_alpha(), pygame.image.load('Game/adventurer-run-04.png').convert_alpha(), pygame.image.load('Game/adventurer-run-05.png').convert_alpha()]
+walkLeft = [pygame.image.load('Game/adventurer-run-00.png').convert_alpha(), pygame.image.load('Game/adventurer-run-01.png').convert_alpha(), pygame.image.load('Game/adventurer-run-02.png').convert_alpha(), pygame.image.load('Game/adventurer-run-03.png').convert_alpha(), pygame.image.load('Game/adventurer-run-04.png').convert_alpha(), pygame.image.load('Game/adventurer-run-05.png').convert_alpha()]
+bg = [pygame.image.load('Layers/Layer_0000_9.png').convert_alpha(), pygame.image.load('Layers/Layer_0001_8.png').convert_alpha(), pygame.image.load('Layers/Layer_0002_7.png').convert_alpha(), pygame.image.load('Layers/Layer_0003_6.png').convert_alpha(), pygame.image.load('Layers/Layer_0004_Lights.png').convert_alpha(), pygame.image.load('Layers/Layer_0005_5.png').convert_alpha(), pygame.image.load('Layers/Layer_0006_4.png').convert_alpha(), pygame.image.load('Layers/Layer_0007_Lights.png').convert_alpha(), pygame.image.load('Layers/Layer_0008_3.png').convert_alpha(), pygame.image.load('Layers/Layer_0009_2.png').convert_alpha(), pygame.image.load('Layers/Layer_0010_1.png').convert_alpha()]
+
+char = pygame.image.load('Game/adventurer-idle-00.png').convert_alpha()
 
 clock = pygame.time.Clock()
 
@@ -28,7 +30,7 @@ class player(object):
         self.walkCount = 0
 
     def draw(self, win):
-        if self.walkCount + 1 >= 27:
+        if self.walkCount + 1 >= 18:
             self.walkCount = 0
         if self.left:
             win.blit(walkLeft[self.walkCount//3], (self.x, self.y))
@@ -40,26 +42,19 @@ class player(object):
             win.blit(char, (self.x, self.y))
     
 
-class projectile(object):
-    def __init__(self, x, y, radius, colour, facing):
-        self.x = x
-        self.y = y
-        self.radius = radius
-        self.colour = colour
-        self.facing = facing
-
-
 def redrawGameWindow():
-    win.blit(bg, (0, 0))
+    for layers in bg[::-1]:
+        win.blit(layers, (0, 0))
+
     daniel.draw(win)
     pygame.display.update()
-
+ 
 # Main loop
-daniel = player(300, 410, 64, 64)
+daniel = player(screenWidth/2, 690, 64 , 64)
 run = True
 
 while run:
-    clock.tick(27)
+    clock.tick(18)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
