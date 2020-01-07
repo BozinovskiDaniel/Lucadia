@@ -10,7 +10,7 @@ charSize = (150, 100)
 
 walkRight = [pygame.image.load('Character/adventurer-run-00.png'), pygame.image.load('Character/adventurer-run-01.png'), pygame.image.load('Character/adventurer-run-02.png'), pygame.image.load('Character/adventurer-run-03.png'), pygame.image.load('Character/adventurer-run-04.png'), pygame.image.load('Character/adventurer-run-05.png')]
 walkLeft = [pygame.image.load('Character/adventurer-run-00.png'), pygame.image.load('Character/adventurer-run-01.png'), pygame.image.load('Character/adventurer-run-02.png'), pygame.image.load('Character/adventurer-run-03.png'), pygame.image.load('Character/adventurer-run-04.png'), pygame.image.load('Character/adventurer-run-05.png')]
-char = pygame.image.load('Character/adventurer-idle-00.png')
+char = pygame.image.load('Character/adventurer-idle-2-00.png')
 char = pygame.transform.scale(char, charSize)
 
 for i in range(len(walkRight)):
@@ -48,6 +48,12 @@ class player(object):
         self.walkCount = 0
         self.jumpCount = 10
 
+    def getx(self):
+        return self.x
+    
+    def gety(self):
+        return self.y
+
     def draw(self, win):
         if self.walkCount + 1 >= 18:
             self.walkCount = 0
@@ -67,11 +73,14 @@ def redrawGameWindow():
     
     for layers in bg:
         win.blit(layers, (0 - scroll[0], 0 - scroll[1]))
+        win.blit(layers, (-1280 - scroll[0], 0 - scroll[1]))
 
     for layers2 in bg2:
         win.blit(layers2, (1280 - scroll[0], 0 - scroll[1]))
 
-    scroll[0] += 1
+
+
+    scroll[0] += (man.getx() - scroll[0] - 550)
     man.draw(win)
     
     pygame.display.update()
@@ -102,6 +111,11 @@ while run:
         man.left = False
         man.walkCount = 0
         
+    if keys[pygame.K_LSHIFT]:
+        man.x += man.vel
+        man.right = True
+        man.left = False
+
     if not(man.isJump):
         if keys[pygame.K_SPACE]:
             man.isJump = True
