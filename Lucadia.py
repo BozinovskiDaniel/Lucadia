@@ -22,7 +22,7 @@ for i in range(len(walkRight)):
 scroll = [0, 0]
 bg = [pygame.image.load('Background/country-platform-back.png').convert_alpha(), pygame.image.load('Background/country-platform-forest.png').convert_alpha(), pygame.image.load('Background/country-platform-tiles-example.png').convert_alpha()]
 
-bg2 = []
+bg2 = [pygame.image.load('Background/country-platform-back.png').convert_alpha(), pygame.image.load('Background/country-platform-forest.png').convert_alpha(), pygame.image.load('Background/country-platform-tiles-example-1.png').convert_alpha()]
 
 for i in range(len(bg)):
     bg[i] = pygame.transform.scale(bg[i], GAMESIZE)
@@ -68,8 +68,8 @@ def redrawGameWindow():
     for layers in bg:
         win.blit(layers, (0 - scroll[0], 0 - scroll[1]))
 
-    for layers in bg2:
-        win.blit(layers, (1280 - scroll[0], 0 - scroll[1]))
+    for layers2 in bg2:
+        win.blit(layers2, (1280 - scroll[0], 0 - scroll[1]))
 
     scroll[0] += 1
     man.draw(win)
