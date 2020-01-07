@@ -3,7 +3,7 @@
 
 Logbook:
 - Created basic player movement including moving left, right and jumping
-
+- Translated code into more OO approach
 
 
 
